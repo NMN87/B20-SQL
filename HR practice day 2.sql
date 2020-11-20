@@ -1,0 +1,188 @@
+SELECT * FROM EMPLOYEES;
+
+--FIND OUT ALL THE EMPLOYEES WITH DEPARTMENT ID OF 60 OR 100
+SELECT * FROM EMPLOYEES
+WHERE DEPARTMENT_ID = 60 OR DEPARTMENT_ID = 100;
+
+-- ON TOP OF ABOVE QUERY ONLY GET FIRST NAME AND LAST NAME AND SALARY AND JOB_ID
+SELECT FIRST_NAME , LAST_NAME , SALARY , JOB_ID 
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID = 60 OR DEPARTMENT_ID = 100;
+
+--  > >= = != <> < <=
+-- AND , OR
+
+-- FIND OUT ALL THE JOBS INFO IF THE MINIMUM SALARY IS MORE THAN 5000 AND LESS THAN 10000
+-- USE JOBS TABLE
+-- BETWEEN ... AND ....
+SELECT * FROM JOBS
+--WHERE MIN_SALARY BETWEEN 5500 AND 10000;  -> THIS two lines are doing the same thing
+WHERE min_salary >= 5500 and min_salary <= 10000;
+
+-- FIND OUT ALL THE EMPLOYEES FIRST NAME AND PHONE AND DEPARTMENT_ID
+-- WITH DEPARTMENT ID OF 60 OR 100 OR 90 OR 80, 120
+-- IF WE ARE CHECKING FOR MULTIPLE POSSIBLE VALUES FOR SAME COLUMN
+-- WE CAN USE IN(VALUE1, VALUE2, VALUE3...)
+SELECT FIRST_NAME, PHONE_NUMBER , DEPARTMENT_ID
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID IN (60,100,90,80,120);
+
+-- ABOVE CODE IS THE SAME AS BELOW CODE USING OR
+SELECT FIRST_NAME, PHONE_NUMBER , DEPARTMENT_ID
+FROM EMPLOYEES  
+WHERE DEPARTMENT_ID =60 OR 
+      DEPARTMENT_ID =70 OR 
+      DEPARTMENT_ID =80 OR 
+      DEPARTMENT_ID =90 ;
+
+-- I WANT TO GET ALL THE FIRST NAMES THAT STARTS WITH LETTER A
+-- FROM EMPLOYEE TABLE 
+-- AND IT'S USED WITH LIKE
+-- % IS WILD CARD THAT CAN REPRESENT 0 OR MORE CHARACTERS
+-- for wxample 'A%' means --> any String that start with letter A
+-- WE CAN USE IT TO PARTIAL STRING MATCH
+SELECT FIRST_NAME
+FROM EMPLOYEES 
+WHERE FIRST_NAME LIKE 'A%';
+
+-- I WANT TO GET ALL THE FIRST NAMES FROM EMPLOYEE TABLE THAT END WITH LETTER a
+-- %a
+SELECT FIRST_NAME
+FROM EMPLOYEES
+WHERE FIRST_NAME LIKE '%a';
+
+-- find out all first name and last name from employees table
+-- if the first name start with 'A' and last name end with 'n'
+SELECT FIRST_NAME , LAST_NAME
+FROM EMPLOYEES 
+WHERE FIRST_NAME LIKE 'A%' AND LAST_NAME LIKE '%n';
+
+-- find out all the name that contains letter 'a' , anywhere
+-- '%a%' means a can be anywhere
+SELECT FIRST_NAME
+FROM EMPLOYEES
+WHERE FIRST_NAME LIKE'%a%' ;
+
+-- from employees table find out all job_id start with AD
+SELECT JOB_ID
+FROM employees
+WHERE JOB_ID LIKE 'AD%';
+
+-- from employees table find out all job_id end with REP 
+SELECT JOB_ID
+FROM employees
+WHERE JOB_ID LIKE '%REP';
+
+-- from employees table find out all job_id does not end with REP
+SELECT JOB_ID
+FROM employees
+WHERE JOB_ID NOT LIKE '%REP';
+
+-- FIND OUT ALL THE FIRST NAME DOES NOT CONTAIN LETTER 'a'
+SELECT FIRST_NAME
+FROM EMPLOYEES
+WHERE fIRST_NAME NOT LIKE '%a%';
+
+-- make above code case insensitive
+-- first name does not contains 'a' and first name does not start with 'A'
+SELECT FIRST_NAME
+FROM EMPLOYEES
+WHERE fIRST_NAME NOT LIKE '%a%' AND FIRST_NAME NOT LIKE 'A%';
+
+--We know that Uppercase A only can show up in the first character 
+--- so in order to exclude thee upper case A we will to say NOT LIKE 'A%'
+--Lowercase a can show up either in the middle or at end , so in order 
+--- to exclude the lowercase a we need to use NOT LIKE '%a%'
+
+-- Working with Null 
+-- If a cell has no value entered it's Null
+
+-- Find out the employees information if the employees MANAGER_ID is Null
+SELECT * FROM EMPLOYEES
+WHERE MANAGER_ID IS NULL;
+
+-- Find out the FIRST_NAME and MANAGER_ID is NOT Null
+SELECT FIRST_NAME , MANAGER_ID
+FROM EMPLOYEES
+WHERE MANAGER_ID IS NOT NULL;
+
+-- FUNCTIONS IN SQL -- PRE-WRITTEN FUNCTIONALITY WE CAN DIRECTLU USE
+
+-- SINGLE ROW FUNCTIONS
+/*
+concatination operator ||,        with space firstName || ' ' || lastName
+concat(value1, value2),           with space concat(concat(value1) ' '),(value2)
+substr(value, begIndex, endIndex)
+upper(value)  ,       makes value upperCase
+lower(value)  ,       makes value lowerCase
+initCap(value),       makes first letter upperCase
+length(value) ,       defines length of the giving value
+replace(first_name, 'A', 'B'),      replaces all A to B from the giving value
+trim(value) ,         removes empty spaces
+*/
+
+-- DISPLAY ALL EMPLOYEES FIRST NAME IN UPPERCASE
+SELECT FIRST_NAME, UPPER( FIRST_NAME ), LOWER( FIRST_NAME )
+FROM EMPLOYEES;
+
+-- RETURN ALL EMPLOYEE FIRST_NAME AND SALARY FROM EMPLOYEE TABLE
+-- DISPLAY THE RESULTING COLUMN AS , NAME , MONEY
+-- WE CAN GIVE ALIAS TO THE RESULTING QUERY RESULT COLUMN NAME USING 'AS'
+SELECT FIRST_NAME AS NAME, SALARY AS MONEY
+FROM EMPLOYEES;
+
+-- I WANT TO RETURN FIRST_NAME AND LAST_NAME IN ONE COLUMN AND NAME THIS COLUMN AS FULL_NAME
+-- THE RESULT SHOULD BE 3 COLUMNS , FIRST_NAME, LAST_NAME , FULL_NAME
+-- CONCATINATION IN SQL USE ||
+SELECT FIRST_NAME , LAST_NAME , FIRST_NAME || ' ' || LAST_NAME AS FULL_NAME
+FROM EMPLOYEES;
+
+-- I Love SQL Already LalaLa
+
+
+-- FIND OUT ALL THE FIRST_NAME CONTAIN LETTER 'A' OR 'a'
+SELECT FIRST_NAME , UPPER(FIRST_NAME)
+FROM EMPLOYEES
+WHERE UPPER(FIRST_NAME) LIKE '%A%';
+
+SELECT FIRST_NAME 
+FROM EMPLOYEES
+WHERE LOWER(FIRST_NAME) LIKE '%a%';
+
+-- FIND OUT ALL THE FIRST_NAME DOES NOT CONTAIN LETTER 'A' OR 'a'
+SELECT FIRST_NAME , UPPER(FIRST_NAME)
+FROM EMPLOYEES
+WHERE UPPER(FIRST_NAME) NOT LIKE '%A%';
+
+-- DISPLAY FIRST 3 LETTERS OF FIRST NAME
+-- SUBSTR(value, begIndex, endIndex)
+SELECT FIRST_NAME, SUBSTR( FIRST_NAME, 1 , 3 ) , LENGTH( FIRST_NAME )
+FROM EMPLOYEES;
+
+-- MULTI ROW FUNCTION | GROUP FUNCTION | AGGREGAGE FUNCTION
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
